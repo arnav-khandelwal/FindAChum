@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Social Media - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Sports Social</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Create Post</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Section -->
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Filter Section -->
+            <div class="col-md-3">
+                <h5>Filter Posts</h5>
+                <form id="filter-form">
+                    <div class="mb-3">
+                        <label for="sportFilter" class="form-label">Sport</label>
+                        <select class="form-select" id="sportFilter">
+                            <option value="all">All Sports</option>
+                            <option value="football">Football</option>
+                            <option value="basketball">Basketball</option>
+                            <option value="tennis">Tennis</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="dateFilter" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="dateFilter" max="">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Apply Filters</button>
+                </form>
+            </div>
+
+            <!-- Post and Sorting Section -->
+            <div class="col-md-9">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5>Recent Posts</h5>
+                    <div>
+                        <label for="sortOptions" class="form-label">Sort by</label>
+                        <select class="form-select" id="sortOptions" style="width: 150px;">
+                            <option value="time">Time</option>
+                            <option value="hot">Hot</option>
+                            <option value="rising">Rising</option>
+                            <option value="all time">Rising</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Post List -->
+                <div id="post-list">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h6 class="card-title">Football - Available to play on Saturday, 10 AM at Central Park</h6>
+                            <p class="card-text"><small class="text-muted">Posted by User1 on 2024-09-20</small></p>
+                        </div>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h6 class="card-title">Basketball - Looking for players on Friday, 5 PM at Sports Complex</h6>
+                            <p class="card-text"><small class="text-muted">Posted by User2 on 2024-09-19</small></p>
+                        </div>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h6 class="card-title">Tennis - Need a partner for doubles, Sunday 3 PM</h6>
+                            <p class="card-text"><small class="text-muted">Posted by User3 on 2024-09-18</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set max date for date input (1 week in advance)
+        document.getElementById("dateFilter").setAttribute("max", new Date(new Date().setDate(new Date().getDate() + 7)).toISOString().split('T')[0]);
+
+        // Placeholder for sorting and filtering logic
+        document.getElementById('filter-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Add filter logic here
+        });
+
+        document.getElementById('sortOptions').addEventListener('change', function() {
+            // Add sorting logic here
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

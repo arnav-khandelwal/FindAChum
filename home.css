@@ -1,0 +1,25 @@
+body {
+  background-color: #f8f9fa;
+}
+
+.navbar-brand {
+  font-weight: bold;
+}
+
+h5 {
+  font-size: 1.25rem;
+  margin-bottom: 15px;
+}
+
+.card-title {
+  font-size: 1.1rem;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.container {
+  margin-top: 20px;
+}
