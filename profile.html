@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div id="navbar-placeholder"></div>
+    <script>
+        document.getElementById("navbar-placeholder").innerHTML = fetch('navbar.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('navbar-placeholder').innerHTML = data);
+    </script>
+
+    <!-- Profile Section -->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="Profile Image">
+                    <div class="card-body">
+                        <h5 class="card-title">User Name</h5>
+                        <p class="card-text">Bio: Sports enthusiast. Available to play every weekend!</p>
+                        <p class="card-text">Sport Interests: Basketball, Football, Tennis</p>
+                        <p class="card-text">Location: Central Park, New York</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <h3>Past Posts</h3>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <strong>Football:</strong> Played on Saturday at Central Park.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Basketball:</strong> Game on Friday at Sports Complex.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Tennis:</strong> Partner for doubles on Sunday.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
