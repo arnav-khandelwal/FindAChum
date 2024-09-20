@@ -22,16 +22,18 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="card">
-                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="Profile Image">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="Profile Image" id="profileImage">
                     <div class="card-body">
-                        <h5 class="card-title">User Name</h5>
-                        <p class="card-text">Bio: Sports enthusiast. Available to play every weekend!</p>
-                        <p class="card-text">Sport Interests: Basketball, Football, Tennis</p>
-                        <p class="card-text">Location: Central Park, New York</p>
+                        <h5 class="card-title" id="userName">User Name</h5>
+                        <p class="card-text" id="userBio">Bio: Sports enthusiast. Available to play every weekend!</p>
+                        <p class="card-text" id="userInterests">Sport Interests: Basketball, Football, Tennis</p>
+                        <p class="card-text" id="userLocation">Location: Central Park, New York</p>
+                        <button class="btn btn-primary" id="editProfileBtn" onclick="toggleEditMode()">Edit Profile</button>
                     </div>
                 </div>
             </div>
 
+            <!-- Past Posts Section -->
             <div class="col-md-8">
                 <h3>Past Posts</h3>
                 <ul class="list-group">
@@ -49,6 +51,32 @@
         </div>
     </div>
 
+    <!-- Hidden Edit Form (Initially Hidden) -->
+    <div class="container mt-3" id="editProfileForm" style="display: none;">
+        <h3>Edit Profile</h3>
+        <form>
+            <div class="mb-3">
+                <label for="editName" class="form-label">Name</label>
+                <input type="text" class="form-control" id="editName" placeholder="Enter your name">
+            </div>
+            <div class="mb-3">
+                <label for="editBio" class="form-label">Bio</label>
+                <textarea class="form-control" id="editBio" rows="2" placeholder="Enter your bio"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="editInterests" class="form-label">Sport Interests</label>
+                <input type="text" class="form-control" id="editInterests" placeholder="Enter sports you are interested in">
+            </div>
+            <div class="mb-3">
+                <label for="editLocation" class="form-label">Location</label>
+                <input type="text" class="form-control" id="editLocation" placeholder="Enter your location">
+            </div>
+            <button type="button" class="btn btn-success" onclick="saveProfile()">Save Changes</button>
+            <button type="button" class="btn btn-secondary" onclick="toggleEditMode()">Cancel</button>
+        </form>
+    </div>
+
+    <script src="editProfile.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
