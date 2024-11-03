@@ -70,13 +70,12 @@ function submitPost() {
   const existingPosts = JSON.parse(localStorage.getItem("posts")) || [];
   existingPosts.push(newPost);
   localStorage.setItem("posts", JSON.stringify(existingPosts));
-
+  closePostModal();
   // Display the new post in the UI
   displayPosts();
 
   // Clear the draft and close the modal
   clearDraft();
-  closePostModal();
 }
 
 // Display all posts from localStorage
