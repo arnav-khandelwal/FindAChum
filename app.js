@@ -30,9 +30,6 @@ function saveDraft() {
   localStorage.setItem("postDraft", JSON.stringify(postDraft));
 
   console.log("Draft saved:", postDraft);
-
-  // Close modal after saving
-  closePostModal();
 }
 
 // Load the saved draft from localStorage
@@ -76,6 +73,8 @@ function submitPost() {
 
   // Clear the draft and close the modal
   clearDraft();
+  deleteDraft();
+ 
 }
 
 // Display all posts from localStorage
@@ -101,9 +100,10 @@ function displayPosts() {
 }
 
 // Clear draft from localStorage after posting
-function clearDraft() {
+function deleteDraft() {
   localStorage.removeItem("postDraft");
   console.log("Draft cleared");
+  closePostModal();
 }
 
 // Set max date for the date filter (7 days ahead)
