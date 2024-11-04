@@ -1,3 +1,10 @@
+<?php
+session_start();
+
+// Check if user is logged in
+$isLoggedIn = isset($_SESSION['user_id']);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,7 +92,7 @@
                         <a class="nav-link" href="#">Friends</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="profile.html">Mypage</a>
+                        <a class="nav-link" href="profile.php">Mypage</a>
                     </li>
                 </ul>
                 <form class="d-flex ms-auto position-relative">
@@ -100,7 +107,12 @@
                             <img src="https://via.placeholder.com/30" class="rounded-circle" alt="Profile">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                            <li><a class="dropdown-item" href="profile.html">Profile</a></li>
+                            <?php if ($isLoggedIn): ?>
+                                <li><a class="dropdown-item" href="profile.php">Profile</a></li>
+                                <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                            <?php else: ?>
+                                <li><a class="dropdown-item" href="signin.html">Sign In / Sign Up</a></li>
+                            <?php endif; ?>
                             <li><a class="dropdown-item" href="#">Check Past Posts</a></li>
                             <li class="dropdown-item">
                                 <div class="form-check form-switch">
@@ -111,7 +123,6 @@
                                     </label>
                                 </div>
                             </li>
-                            <li><a class="dropdown-item" href="signin.html">Sign In / Sign Up</a></li>
                         </ul>
                     </li>
                 </ul>
