@@ -36,8 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signup'])) {
     try {
         // Prepare statement to insert user information
         $stmt = $conn->prepare("INSERT INTO users (name, user_name, email, password) VALUES (?, ?, ?, ?)");
+        $stmtU = $conn->prepare("INSERT INTO user_info (user_name) VALUES (?)");
         $stmt->bind_param("ssss", $name, $user_name, $email, $hashed_password);
+        $stmtU->bind_param("s",$user_name);
         $stmt->execute();
+        $stmtU->execute();
         returnMessage("Registration successful! Please login");
     } catch (mysqli_sql_exception $e) {
         if ($e->getCode() == 1062) { // Duplicate entry error code
