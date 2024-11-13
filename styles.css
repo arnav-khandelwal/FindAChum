@@ -1,33 +1,46 @@
 body {
-  background-color: #f8f9fa;
+  background-color: #f3f4f6; /* Slightly softer off-white */
 }
 
 .navbar-brand {
   font-weight: bold;
+  color: #343a40; /* Darker shade for better contrast */
 }
 
 .card {
-  margin-bottom: 20px;
+  margin-bottom: 24px; /* Slightly larger spacing for visual separation */
+  border: 1px solid #e0e0e0; /* Light border to add subtle definition */
+  border-radius: 8px; /* Rounded corners for a modern look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 }
 
 .card-body img {
   width: 100%;
   height: auto;
+  border-radius: 6px; /* Rounded image corners for cohesion */
 }
 
 .btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: #0056b3; /* Deeper blue for better contrast */
+  border-color: #0056b3;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #004494; /* Darker blue for hover effect */
+  border-color: #004494;
 }
 
 .card-title {
-  font-size: 1.25rem;
+  font-size: 1.3rem; /* Slightly larger for emphasis */
+  color: #212529; /* Dark gray for better readability */
 }
 
 .card-text {
   font-size: 1rem;
+  color: #495057; /* Muted gray for secondary text */
 }
 
 .container {
-  margin-top: 20px;
+  margin-top: 24px; /* Slightly larger top margin for balanced spacing */
 }

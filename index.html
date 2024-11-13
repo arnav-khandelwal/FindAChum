@@ -17,7 +17,6 @@
             .then(data => document.getElementById('navbar-placeholder').innerHTML = data);
     </script>
 
-
     <!-- Main Section -->
     <div class="container mt-5">
         <div class="row">
@@ -33,30 +32,11 @@
                 </div>
             </div>
 
-            <!-- Post Section -->
+            <!-- Post Section Button -->
             <div class="col-md-8">
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Create a Post</h5>
-                        <form>
-                            <div class="mb-3">
-                                <label for="sport" class="form-label">Sport</label>
-                                <select class="form-select" id="sport">
-                                    <option value="football">Football</option>
-                                    <option value="basketball">Basketball</option>
-                                    <option value="tennis">Tennis</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="timing" class="form-label">Play Time</label>
-                                <input type="datetime-local" class="form-control" id="timing">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Post</button>
-                        </form>
-                    </div>
-                </div>
+                <button class="btn btn-primary mb-3" onclick="openPostModal()">Create a Post</button>
 
-                <!-- Posts -->
+                <!-- Posts Section -->
                 <div class="card">
                     <div class="card-header">
                         Recent Posts
@@ -77,6 +57,61 @@
         </div>
     </div>
 
+    <!-- Post Modal -->
+    <div id="postModal" class="modal" tabindex="-1" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New Post</h5>
+                    <button type="button" class="btn-close" aria-label="Close" onclick="closePostModal()"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="newPostForm">
+                        <div class="mb-3">
+                            <label for="postTitle" class="form-label">Post Title</label>
+                            <input type="text" class="form-control" id="postTitle">
+                        </div>
+                        <div class="mb-3">
+                            <label for="postTags" class="form-label">Tags</label>
+                            <input type="text" class="form-control" id="postTags">
+                        </div>
+                        <div class="mb-3">
+                            <label for="postContent" class="form-label">Content</label>
+                            <textarea class="form-control" id="postContent" rows="4"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="timing" class="form-label">Play Time</label>
+                            <input type="datetime-local" class="form-control" id="timing">
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="saveDraft()">Save Draft</button>
+                        <button type="button" class="btn btn-success" onclick="submitPost()">Post</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Function to open the modal
+        function openPostModal() {
+            document.getElementById("postModal").style.display = "block";
+        }
+
+        // Function to close the modal
+        function closePostModal() {
+            document.getElementById("postModal").style.display = "none";
+        }
+
+        // Placeholder functions for saving a draft or submitting a post
+        function saveDraft() {
+            alert("Draft saved!");
+        }
+
+        function submitPost() {
+            alert("Post submitted!");
+            closePostModal();
+        }
+    </script>
 </body>
 </html>

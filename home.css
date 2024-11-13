@@ -1,23 +1,26 @@
 body {
-  background-color: #f8f9fa;
+  background-color: #f3f4f6; /* Slightly softer off-white */
 }
 
 .navbar-brand {
   font-weight: bold;
+  color: #343a40; /* Darker gray for contrast */
 }
 
 h5 {
   font-size: 1.25rem;
   margin-bottom: 15px;
+  color: #212529; /* Darker for strong emphasis */
 }
 
 .card-title {
   font-size: 1.1rem;
+  color: #495057; /* Muted dark gray for a balanced look */
 }
 
 .card-text {
   font-size: 0.9rem;
-  color: #6c757d;
+  color: #5a6268; /* Softer than pure gray, good for secondary text */
 }
 
 .container {

@@ -15,7 +15,8 @@ function saveDraft() {
   const postTitle = document.getElementById("postTitle").value;
   const postTags = document.getElementById("postTags").value;
   const postContent = document.getElementById("postContent").value;
-
+  const playTime = document.getElementById("timing").value; // Corrected to "timing"
+  
   if (!postTitle || !postContent) {
     alert("Please fill out the title and content.");
     return;
@@ -25,7 +26,8 @@ function saveDraft() {
   const postDraft = {
     title: postTitle,
     tags: postTags,
-    content: postContent
+    content: postContent,
+    playTime: playTime
   };
   localStorage.setItem("postDraft", JSON.stringify(postDraft));
 
@@ -36,11 +38,12 @@ function saveDraft() {
 function loadDraft() {
   const savedDraft = localStorage.getItem("postDraft");
   if (savedDraft) {
-    const { title, tags, content } = JSON.parse(savedDraft);
+    const { title, tags, content, playTime } = JSON.parse(savedDraft); // Include playTime in destructuring
     document.getElementById("postTitle").value = title;
     document.getElementById("postTags").value = tags;
     document.getElementById("postContent").value = content;
-    console.log("Draft loaded:", { title, tags, content });
+    document.getElementById("timing").value = playTime || ''; // Corrected to "timing"
+    console.log("Draft loaded:", { title, tags, content, playTime });
   }
 }
 
@@ -49,17 +52,30 @@ function submitPost() {
   const postTitle = document.getElementById("postTitle").value;
   const postTags = document.getElementById("postTags").value;
   const postContent = document.getElementById("postContent").value;
+  const playTimeInput = document.getElementById("timing").value; // Input from datetime-local
 
   if (!postTitle || !postContent) {
     alert("Please fill out the title and content.");
     return;
   }
 
+  // Format playTime for display (e.g., "Saturday, September 23, 2024, 10:00 AM")
+  const playTime = playTimeInput ? new Date(playTimeInput).toLocaleString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true
+  }) : 'not specified';
+
   // Create a new post object
   const newPost = {
     title: postTitle,
     tags: postTags,
     content: postContent,
+    playTime: playTime, // Store formatted play time
     date: new Date().toLocaleString() // Store the current date and time
   };
 
@@ -68,14 +84,14 @@ function submitPost() {
   existingPosts.push(newPost);
   localStorage.setItem("posts", JSON.stringify(existingPosts));
   closePostModal();
+  
   // Display the new post in the UI
   displayPosts();
 
   // Clear the draft and close the modal
-  clearDraft();
   deleteDraft();
- 
 }
+
 
 // Display all posts from localStorage
 function displayPosts() {
@@ -91,6 +107,7 @@ function displayPosts() {
     postCard.innerHTML = `
       <div class="card-body">
         <h6 class="card-title">${post.title}</h6>
+        <p class="card-text">${post.playTime || 'not specified'}</p>
         <p class="card-text">${post.content}</p>
         <p><small class="text-muted">Tags: ${post.tags || 'None'} | Posted on: ${post.date}</small></p>
       </div>
@@ -109,20 +126,8 @@ function deleteDraft() {
 // Set max date for the date filter (7 days ahead)
 document.getElementById("dateFilter").setAttribute("max", new Date(new Date().setDate(new Date().getDate() + 7)).toISOString().split('T')[0]);
 
-// Placeholder filter and sorting logic
-document.getElementById('filter-form').addEventListener('submit', function(event) {
-  event.preventDefault();
-  // Add filter logic here
-});
-
-document.getElementById('sortOptions').addEventListener('change', function() {
-  // Add sorting logic here
-});
-
 // Load posts from localStorage on page load
 document.addEventListener('DOMContentLoaded', function() {
   loadDraft(); // Load the saved draft, if any
   displayPosts(); // Load the saved posts
 });
-
-
