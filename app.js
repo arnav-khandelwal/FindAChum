@@ -52,47 +52,51 @@ function submitPost() {
   const postTitle = document.getElementById("postTitle").value;
   const postTags = document.getElementById("postTags").value;
   const postContent = document.getElementById("postContent").value;
-  const playTimeInput = document.getElementById("timing").value; // Input from datetime-local
+  const playTime = document.getElementById("timing").value;
 
   if (!postTitle || !postContent) {
     alert("Please fill out the title and content.");
     return;
   }
 
-  // Format playTime for display (e.g., "Saturday, September 23, 2024, 10:00 AM")
-  const playTime = playTimeInput ? new Date(playTimeInput).toLocaleString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    hour12: true
-  }) : 'not specified';
-
-  // Create a new post object
+  // Create a new post object with an initial like count
   const newPost = {
     title: postTitle,
     tags: postTags,
     content: postContent,
-    playTime: playTime, // Store formatted play time
-    date: new Date().toLocaleString() // Store the current date and time
+    playTime: playTime,
+    date: new Date().toLocaleString(), // Store the current date and time
+    likes: 0 // Initial like count
   };
 
   // Add the new post to localStorage
   const existingPosts = JSON.parse(localStorage.getItem("posts")) || [];
   existingPosts.push(newPost);
   localStorage.setItem("posts", JSON.stringify(existingPosts));
-  closePostModal();
-  
+
   // Display the new post in the UI
   displayPosts();
 
   // Clear the draft and close the modal
+  clearDraft();
   deleteDraft();
+  closePostModal();
 }
 
+function likePost(index) {
+  // Get posts from localStorage
+  const existingPosts = JSON.parse(localStorage.getItem("posts")) || [];
 
+  // Increment like count for the specific post
+  existingPosts[index].likes = (existingPosts[index].likes || 0) + 1;
+
+  // Update localStorage with the new like count
+  localStorage.setItem("posts", JSON.stringify(existingPosts));
+
+  // Update the like count in the UI
+  document.getElementById(`like-count-${index}`).innerText = existingPosts[index].likes;
+}
+ 
 // Display all posts from localStorage
 function displayPosts() {
   const postList = document.getElementById("post-list");
@@ -101,15 +105,20 @@ function displayPosts() {
   const existingPosts = JSON.parse(localStorage.getItem("posts")) || [];
 
   // Add each post to the post list
-  existingPosts.forEach(post => {
+  existingPosts.forEach((post , index) => {
     const postCard = document.createElement("div");
     postCard.classList.add("card", "mb-3");
+    if (post.likes === undefined) post.likes = 0;
     postCard.innerHTML = `
       <div class="card-body">
         <h6 class="card-title">${post.title}</h6>
         <p class="card-text">${post.playTime || 'not specified'}</p>
         <p class="card-text">${post.content}</p>
         <p><small class="text-muted">Tags: ${post.tags || 'None'} | Posted on: ${post.date}</small></p>
+        <div>
+          <button onclick="likePost(${index})" class="btn btn-outline-primary btn-sm">Like</button>
+          <span id="like-count-${index}">${post.likes}</span> likes
+        </div>
       </div>
     `;
     postList.prepend(postCard); // Add the post at the top of the list
