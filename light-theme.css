@@ -1,0 +1,19 @@
+body {
+  background-color: white;
+  color: black;
+}
+/* Add other light theme styles here */
+/* light-theme.css */
+.modal-content {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #ccc;
+}
+.form-control, .form-select {
+  background-color: #fff;
+  color: #000;
+  border-color: #ddd;
+}
+.btn-close {
+  background-color: #ccc;
+}

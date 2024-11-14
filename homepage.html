@@ -6,8 +6,10 @@
     <title>Sports Social Media - Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link id="theme-stylesheet" rel="stylesheet" href="dark-theme.css">
+
 </head>
-<body>
+<body class="container mt-5">
 
     <div id="navbar-placeholder"></div>
 
@@ -15,10 +17,24 @@
         document.getElementById("navbar-placeholder").innerHTML = fetch('navbar.php')
             .then(response => response.text())
             .then(data => document.getElementById('navbar-placeholder').innerHTML = data);
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+const themeStylesheet = document.getElementById('theme-stylesheet');
+themeStylesheet.href = savedTheme === 'dark' ? 'dark-theme.css' : 'light-theme.css';
+
+function toggleTheme() {
+    // Retrieve the current theme again to ensure it toggles correctly
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', newTheme);
+    themeStylesheet.href = newTheme === 'dark' ? 'dark-theme.css' : 'light-theme.css';
+}
+
+// Assuming there is a button with id 'theme-toggle-btn' to toggle theme
+document.getElementById('theme-toggle-btn').addEventListener('change', toggleTheme);
+
     </script>
 
     <!-- Main Section -->
-    <div class="container mt-5">
         <div class="row">
             <!-- Filter Section -->
             <div class="col-md-3">
@@ -65,7 +81,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    
 
     <!-- Modal for creating a new post -->
     <div id="postModal" class="modal" style="display: none;">
@@ -90,8 +106,10 @@
                             <textarea class="form-control" id="postContent" rows="4"></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="timing" class="form-label">Play Time</label>
-                            <input type="datetime-local" class="form-control" id="timing">
+                            <label for="timing" class="form-label">At:</label>
+                            <input type="datetime-local" class="form-control" id="timing" onchange="formatTiming()">
+                            <small id="formattedTiming" class="form-text text-muted"></small> <!-- Display formatted date here -->
+                        
                         </div>
                         <button type="button" class="btn btn-primary" onclick="saveDraft()">Save Draft</button>
                         <button type="button" class="btn btn-success" onclick="submitPost()">Post</button>
@@ -101,6 +119,7 @@
         </div>
     </div>
 
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="app.js"></script>
 </body>

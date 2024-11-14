@@ -13,6 +13,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+    <link id="theme-stylesheet" rel="stylesheet" href="dark-theme.css">
     <style>
         /* Add padding to the top of the body to prevent content from being hidden behind the navbar */
         body {
@@ -131,16 +132,27 @@ $isLoggedIn = isset($_SESSION['user_id']);
     </nav>
     
     <script>
-        // Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-    
-        themeToggle.addEventListener('change', function () {
-            body.classList.toggle('light-mode', !themeToggle.checked);
+        // Load theme based on user preference
+        const savedTheme = localStorage.getItem('theme') || 'light'; // Default to light if not set
+        const themeStylesheet = document.getElementById('theme-stylesheet');
+        
+        // Set the href based on saved preference
+        themeStylesheet.href = savedTheme === 'dark' ? 'dark-theme.css' : 'light-theme.css';
+
+        // Toggle switch handling for theme change
+        document.addEventListener("DOMContentLoaded", () => {
+            const themeToggle = document.getElementById('themeToggle');
+            themeToggle.checked = savedTheme === 'dark';
+
+            themeToggle.addEventListener('change', function () {
+                const newTheme = themeToggle.checked ? 'dark' : 'light';
+                themeStylesheet.href = newTheme === 'dark' ? 'dark-theme.css' : 'light-theme.css';
+                localStorage.setItem('theme', newTheme);
+            });
         });
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

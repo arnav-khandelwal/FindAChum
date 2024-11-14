@@ -10,6 +10,24 @@ function closePostModal() {
   document.getElementById("newPostForm").reset(); // Reset the form after closing
 }
 
+function formatTiming() {
+  const timingInput = document.getElementById('timing').value;
+  const formattedTimingElement = document.getElementById('formattedTiming');
+
+  if (timingInput) {
+      const date = new Date(timingInput);
+      const options = { 
+          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', 
+          hour: '2-digit', minute: '2-digit' 
+      };
+      const formattedDate = date.toLocaleDateString(undefined, options);
+      formattedTimingElement.textContent = `Selected date: ${formattedDate}`;
+  } else {
+      formattedTimingElement.textContent = '';
+  }
+}
+
+
 // Save the post draft to localStorage
 function saveDraft() {
   const postTitle = document.getElementById("postTitle").value;
@@ -58,6 +76,7 @@ function submitPost() {
     alert("Please fill out the title and content.");
     return;
   }
+  const formattedPlayTime = playTime ? formatPlayTime(playTime) : 'not specified';
 
   // Create a new post object with an initial like count
   const newPost = {
@@ -78,11 +97,15 @@ function submitPost() {
   displayPosts();
 
   // Clear the draft and close the modal
-  clearDraft();
+ 
   deleteDraft();
   closePostModal();
 }
-
+function formatPlayTime(playTime) {
+  const date = new Date(playTime);
+  const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+  return date.toLocaleDateString(undefined, options);
+}
 function likePost(index) {
   // Get posts from localStorage
   const existingPosts = JSON.parse(localStorage.getItem("posts")) || [];
@@ -112,7 +135,7 @@ function displayPosts() {
     postCard.innerHTML = `
       <div class="card-body">
         <h6 class="card-title">${post.title}</h6>
-        <p class="card-text">${post.playTime || 'not specified'}</p>
+       <p class="card-text"><strong>Play Time:</strong> ${post.playTime}</p>
         <p class="card-text">${post.content}</p>
         <p><small class="text-muted">Tags: ${post.tags || 'None'} | Posted on: ${post.date}</small></p>
         <div>
