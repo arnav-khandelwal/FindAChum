@@ -110,15 +110,24 @@ function likePost(index) {
   // Get posts from localStorage
   const existingPosts = JSON.parse(localStorage.getItem("posts")) || [];
 
-  // Increment like count for the specific post
-  existingPosts[index].likes = (existingPosts[index].likes || 0) + 1;
+  // Check if the post is already liked
+  const post = existingPosts[index];
+  post.likedByUser = !post.likedByUser; // Toggle like status
 
-  // Update localStorage with the new like count
+  // Update the like count based on the like status
+  post.likes = post.likedByUser ? (post.likes || 0) + 1 : (post.likes || 0) - 1;
+
+  // Update localStorage with the new like count and status
   localStorage.setItem("posts", JSON.stringify(existingPosts));
 
-  // Update the like count in the UI
-  document.getElementById(`like-count-${index}`).innerText = existingPosts[index].likes;
+  // Update the like count and button text in the UI
+  const likeButton = document.getElementById(`like-button-${index}`);
+  const likeCount = document.getElementById(`like-count-${index}`);
+  
+  likeCount.innerText = post.likes;
+  likeButton.innerText = post.likedByUser ? "Unlike" : "Like";
 }
+
  
 // Display all posts from localStorage
 function displayPosts() {
@@ -128,18 +137,20 @@ function displayPosts() {
   const existingPosts = JSON.parse(localStorage.getItem("posts")) || [];
 
   // Add each post to the post list
-  existingPosts.forEach((post , index) => {
+  existingPosts.forEach((post, index) => {
     const postCard = document.createElement("div");
     postCard.classList.add("card", "mb-3");
     if (post.likes === undefined) post.likes = 0;
     postCard.innerHTML = `
       <div class="card-body">
         <h6 class="card-title">${post.title}</h6>
-       <p class="card-text"><strong>Play Time:</strong> ${post.playTime}</p>
+        <p class="card-text"><strong>Play Time:</strong> ${post.playTime}</p>
         <p class="card-text">${post.content}</p>
         <p><small class="text-muted">Tags: ${post.tags || 'None'} | Posted on: ${post.date}</small></p>
         <div>
-          <button onclick="likePost(${index})" class="btn btn-outline-primary btn-sm">Like</button>
+          <button id="like-button-${index}" onclick="likePost(${index})" class="btn btn-outline-primary btn-sm">
+            ${post.likedByUser ? "Unlike" : "Like"}
+          </button>
           <span id="like-count-${index}">${post.likes}</span> likes
         </div>
       </div>
@@ -147,6 +158,7 @@ function displayPosts() {
     postList.prepend(postCard); // Add the post at the top of the list
   });
 }
+
 
 // Clear draft from localStorage after posting
 function deleteDraft() {
