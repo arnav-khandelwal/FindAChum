@@ -25,6 +25,29 @@ if (!$user_data) {
 </head>
 <body>
 
+<div id="navbar-placeholder"></div>
+
+<script>
+    document.getElementById("navbar-placeholder").innerHTML = fetch('navbar.php')
+        .then(response => response.text())
+        .then(data => document.getElementById('navbar-placeholder').innerHTML = data);
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        const themeStylesheet = document.getElementById('theme-stylesheet');
+        themeStylesheet.href = savedTheme === 'dark' ? 'dark-theme.css' : 'light-theme.css';
+
+        function toggleTheme() {
+        // Retrieve the current theme again to ensure it toggles correctly
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('theme', newTheme);
+        themeStylesheet.href = newTheme === 'dark' ? 'dark-theme.css' : 'light-theme.css';
+        }
+
+        // Assuming there is a button with id 'theme-toggle-btn' to toggle theme
+        document.getElementById('theme-toggle-btn').addEventListener('change', toggleTheme);
+
+</script>
+
 <div class="container mt-5">
     <h2><?php echo htmlspecialchars($user_name); ?>'s Profile</h2>
 
@@ -33,7 +56,7 @@ if (!$user_data) {
         <?php if (!empty($user_data['image_address'])): ?>
             <img src="<?php echo htmlspecialchars($user_data['image_address']); ?>" alt="Profile Image" style="width:150px; height:150px; border-radius:50%;">
         <?php else: ?>
-            <img src="C:\xampp\htdocs\NeedAName\images\default_avatar.png" alt="Default Profile" style="width:150px; height:150px; border-radius:50%;">
+            <img src="images\default_avatar.png" alt="Default Profile" style="width:150px; height:150px; border-radius:50%;">
         <?php endif; ?>
     </div>
 
