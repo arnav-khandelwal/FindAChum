@@ -44,3 +44,24 @@ body {
 .container {
   margin-top: 24px; /* Slightly larger top margin for balanced spacing */
 }
+
+
+
+#filter-section {
+  position: sticky;
+  top: 20px;
+}
+
+/* Adjust post section width to accommodate sticky sort */
+#post-section {
+  max-width: 75%;
+}
+
+/* Make sort section sticky */
+#sort-section {
+  position: sticky;
+  top: 20px;
+  
+  background-color: white; /* Match background to prevent overlapping */
+  padding: 10px 0;
+}

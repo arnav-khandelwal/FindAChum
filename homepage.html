@@ -35,53 +35,56 @@ document.getElementById('theme-toggle-btn').addEventListener('change', toggleThe
     </script>
 
     <!-- Main Section -->
-        <div class="row">
-            <!-- Filter Section -->
-            <div class="col-md-3">
-                <h5>Filter Posts</h5>
-                <form id="filter-form">
-                    <div class="mb-3">
-                        <label for="sportFilter" class="form-label">Sport</label>
-                        <select class="form-select" id="sportFilter">
-                            <option value="all">All Sports</option>
-                            <option value="football">Football</option>
-                            <option value="basketball">Basketball</option>
-                            <option value="tennis">Tennis</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="dateFilter" class="form-label">Date</label>
-                        <input type="date" class="form-control" id="dateFilter" max="">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Apply Filters</button>
-                </form>
-            </div>
-
-            <!-- Post and Sorting Section -->
-            <div class="col-md-9">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5>Recent Posts</h5>
-                    <div>
-                        <label for="sortOptions" class="form-label">Sort by</label>
-                        <select class="form-select" id="sortOptions" style="width: 150px;">
-                            <option value="time">Time</option>
-                            <option value="hot">Hot</option>
-                            <option value="rising">Rising</option>
-                        </select>
-                    </div>
+    <div class="row">
+        <!-- Filter Section -->
+        <div id="filter-section" class="col-md-3">
+            <h5>Filter Posts</h5>
+            <form id="filter-form">
+                <div class="mb-3">
+                    <label for="sportFilter" class="form-label">Sport</label>
+                    <select class="form-select" id="sportFilter">
+                        <option value="all">All Sports</option>
+                        <option value="football">Football</option>
+                        <option value="basketball">Basketball</option>
+                        <option value="tennis">Tennis</option>
+                    </select>
                 </div>
-            
-                <!-- Button to create a new post -->
+                <div class="mb-3">
+                    <label for="dateFilter" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="dateFilter" max="">
+                </div>
+                <button type="submit" class="btn btn-primary">Apply Filters</button>
+            </form>
+             <!-- Button to create a new post -->
+        <button class="btn btn-success mt-3" onclick="openPostModal()">Create New Post</button>
+        <br><br>
+        </div>
+
+        <!-- Post and Sorting Section -->
+        <div id="post-sort-container" class="col-md-9 d-flex">
+            <!-- Post List -->
+            <div id="post-list" class="me-3" style="width: 65%;">
+                <h5>Recent Posts</h5>
                 <button class="btn btn-success mt-3" onclick="openPostModal()">Create New Post</button>
                 <br><br>
-                
-                <!-- Post List -->
-                <div id="post-list">
-                    <!-- Each post card will be dynamically generated here by JavaScript -->
-                </div>
+                <!-- Post Cards will be dynamically generated here -->
+            </div>
+
+            <!-- Sort Options -->
+            <div id="sort-options" class="sticky-top" style="width: 30%;">
+                <label for="sortOptions" class="form-label">Sort by</label>
+                <select class="form-select" id="sortOptions" style="width: 100%;">
+                    <option value="time">Time</option>
+                    <option value="hot">Hot</option>
+                    <option value="rising">Rising</option>
+                </select>
             </div>
         </div>
-    
+        <!-- Button to create a new post -->
+        <button class="btn btn-success mt-3" onclick="openPostModal()">Create New Post</button>
+        <br><br>
+    </div>
+
 
     <!-- Modal for creating a new post -->
     <div id="postModal" class="modal" style="display: none;">
@@ -108,8 +111,7 @@ document.getElementById('theme-toggle-btn').addEventListener('change', toggleThe
                         <div class="mb-3">
                             <label for="timing" class="form-label">At:</label>
                             <input type="datetime-local" class="form-control" id="timing" onchange="formatTiming()">
-                            <small id="formattedTiming" class="form-text text-muted"></small> <!-- Display formatted date here -->
-                        
+                            <small id="formattedTiming" class="form-text text-muted"></small>
                         </div>
                         <button type="button" class="btn btn-primary" onclick="saveDraft()">Save Draft</button>
                         <button type="button" class="btn btn-success" onclick="submitPost()">Post</button>
