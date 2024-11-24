@@ -178,6 +178,31 @@ document.getElementById('theme-toggle-btn').addEventListener('change', toggleThe
         <button class="btn btn-primary" onclick="toggleEditMode()">Edit Profile</button>
     </div>
 
+    <div class="user-posts" style="float: right; width: 30%;">
+    <h4>Your Posts</h4>
+    <?php
+    // Assuming connection to the database is `$conn`
+    $userId = $_SESSION['user_id']; // Fetch the logged-in user ID
+    $query = "SELECT * FROM posts WHERE user_id = ? ORDER BY date DESC";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        while ($post = $result->fetch_assoc()) {
+            echo "<div class='post'>";
+            echo "<h5>" . htmlspecialchars($post['title']) . "</h5>";
+            echo "<p>" . htmlspecialchars($post['content']) . "</p>";
+            echo "<small>Posted on: " . htmlspecialchars($post['date']) . "</small>";
+            echo "</div>";
+        }
+    } else {
+        echo "<p>No posts to display.</p>";
+    }
+    ?>
+    </div>
+
     <!-- Edit Profile Form -->
     <div id="editProfileForm" style="display:none;">
         <h3>Edit Profile</h3>
