@@ -74,15 +74,24 @@ function likePost(index) {
   // Get posts from localStorage
   const existingPosts = JSON.parse(localStorage.getItem("posts")) || [];
 
-  // Increment like count for the specific post
-  existingPosts[index].likes = (existingPosts[index].likes || 0) + 1;
+  // Check if the post is already liked
+  const post = existingPosts[index];
+  post.likedByUser = !post.likedByUser; // Toggle like status
 
-  // Update localStorage with the new like count
+  // Update the like count based on the like status
+  post.likes = post.likedByUser ? (post.likes || 0) + 1 : (post.likes || 0) - 1;
+
+  // Update localStorage with the new like count and status
   localStorage.setItem("posts", JSON.stringify(existingPosts));
 
-  // Update the like count in the UI
-  document.getElementById(`like-count-${index}`).innerText = existingPosts[index].likes;
+  // Update the like count and button text in the UI
+  const likeButton = document.getElementById(`like-button-${index}`);
+  const likeCount = document.getElementById(`like-count-${index}`);
+  
+  likeCount.innerText = post.likes;
+  likeButton.innerText = post.likedByUser ? "Unlike" : "Like";
 }
+
  
 // Function to fetch posts from the database
 async function fetchPosts() {
