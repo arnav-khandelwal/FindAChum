@@ -185,6 +185,10 @@ if (empty($_SESSION['user_name'])) {
         .list-group-item:hover {
             background-color: #333; /* Darker shade when hovered */
         }
+        #searchInput::placeholder {
+            color: white;
+        }
+
 
     </style>
 </head>
