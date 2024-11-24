@@ -178,35 +178,10 @@ document.getElementById('theme-toggle-btn').addEventListener('change', toggleThe
         <button class="btn btn-primary" onclick="toggleEditMode()">Edit Profile</button>
     </div>
 
-    <div class="user-posts" style="float: right; width: 30%;">
-    <h4>Your Posts</h4>
-    <?php
-    // Assuming connection to the database is `$conn`
-    $userId = $_SESSION['user_id']; // Fetch the logged-in user ID
-    $query = "SELECT * FROM posts WHERE user_id = ? ORDER BY date DESC";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $userId);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        while ($post = $result->fetch_assoc()) {
-            echo "<div class='post'>";
-            echo "<h5>" . htmlspecialchars($post['title']) . "</h5>";
-            echo "<p>" . htmlspecialchars($post['content']) . "</p>";
-            echo "<small>Posted on: " . htmlspecialchars($post['date']) . "</small>";
-            echo "</div>";
-        }
-    } else {
-        echo "<p>No posts to display.</p>";
-    }
-    ?>
-    </div>
-
     <!-- Edit Profile Form -->
     <div id="editProfileForm" style="display:none;">
         <h3>Edit Profile</h3>
-        <form id="editProfileFields">
+        <form id="editProfileFields" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="editBio" class="form-label">Bio</label>
                 <textarea class="form-control" id="editBio" placeholder="Update your bio"><?php echo htmlspecialchars($user_data['bio']); ?></textarea>
@@ -231,6 +206,11 @@ document.getElementById('theme-toggle-btn').addEventListener('change', toggleThe
                 <label for="editTwitter" class="form-label">Twitter</label>
                 <input type="text" class="form-control" id="editTwitter" placeholder="Twitter username" value="<?php echo htmlspecialchars($user_data['twitter']); ?>">
             </div>
+            <div class="mb-3">
+                <label for="editPorfilePicture" class="form-label">Display Picture</label>
+                <input type="file" accept="image/*" class="form-control" id="editPorfilePicture" placeholder="Profile Picture" value="<?php echo htmlspecialchars($user_data['image_address']); ?>">
+            </div>
+            
             <button type="button" class="btn btn-success" onclick="saveProfile()">Save Changes</button>
             <button type="button" class="btn btn-secondary" onclick="toggleEditMode()">Cancel</button>
         </form>
@@ -260,20 +240,38 @@ function saveProfile() {
         twitter: document.getElementById('editTwitter').value.trim(),
     };
 
+    const imageFile = document.getElementById('editPorfilePicture').files[0];
+
+    // Create a FormData object to send the file and other fields together
+    const formData = new FormData();
+    formData.append('profile_picture', imageFile);  // Append the image file
+    formData.append('bio', fields.bio);  // Append other fields
+    formData.append('interests', fields.interests);
+    formData.append('location', fields.location);
+    formData.append('age', fields.age);
+    formData.append('instagram', fields.instagram);
+    formData.append('twitter', fields.twitter);
+
+    // Send the data to the server
     fetch('save_profile.php', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(fields),
+        body: formData,  // Send the FormData object
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
             location.reload(); // Reload profile to show updated info
         } else {
-            alert("Failed to update profile.");
+            alert("Failed to update profile: " + (data.message || 'Unknown error.'));
         }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("An error occurred while saving the profile.");
     });
 }
+
+
 </script>
 
 </body>
