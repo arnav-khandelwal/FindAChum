@@ -60,30 +60,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['signin'])) {
     $email = $conn->real_escape_string($_POST['email']);
     $password = $_POST['password'];
 
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ? OR user_name = ?"); // Check by email or username
-    $stmt->bind_param("ss", $email, $email); // Binding email as both email and username for query
+    // Check if the user exists by email or username
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ? OR user_name = ?");
+    $stmt->bind_param("ss", $email, $email);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
+        
+        // Verify password
         if (password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['name'] = $user['name'];
             $_SESSION['user_name'] = $user['user_name'];
-            $_SESSION['user_bio'] = "bio"; // Assuming 'bio' column exists in your users table
-            $_SESSION['user_interests'] = "interests"; // Assuming 'interests' column exists
-            $_SESSION['user_location'] = "location"; // Assuming 'location' column exists
 
-            // Redirect to homepage after successful login
+            // Fetch image_address from the user_info table
+            $user_name = $user['user_name'];
+            $stmt2 = $conn->prepare("SELECT image_address FROM user_info WHERE user_name = ?");
+            $stmt2->bind_param("s", $user_name);
+            $stmt2->execute();
+            $result2 = $stmt2->get_result();
+
+            if ($result2->num_rows > 0) {
+                $user_info = $result2->fetch_assoc();
+                $_SESSION['image_address'] = $user_info['image_address']; // Store image address in session
+            }
+
+            // Close second statement
+            $stmt2->close();
+
+            // Redirect to homepage or dashboard after successful login
             echo 'redirect';
-            exit(); // Always exit after outputting the script
+            exit();
         } else {
             returnMessage("Invalid email or password.");
         }
     } else {
         returnMessage("Invalid email or password.");
     }
+
+    // Close first statement
     $stmt->close();
 }
 

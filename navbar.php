@@ -68,6 +68,14 @@ $isLoggedIn = isset($_SESSION['user_id']);
             color: gray;
         }
 
+        /* Add this CSS to style the profile image */
+        .profile-img {
+            width: 30px;
+            height: 30px;
+            object-fit: cover;  /* Ensures the image fits properly inside the circle */
+        }
+
+
         /* Search bar on mobile view */
         @media (max-width: 767.98px) {
             form.d-flex {
@@ -104,9 +112,11 @@ $isLoggedIn = isset($_SESSION['user_id']);
                 </form>
                 <ul class="navbar-nav ms-2">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://via.placeholder.com/30" class="rounded-circle" alt="Profile">
-                        </a>
+                    <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <!-- Profile Image with a small 30x30 circle -->
+                        <img src="<?php echo isset($_SESSION['image_address']) ? $_SESSION['image_address'] : 'images/default_avatar.png'; ?>" class="profile-img rounded-circle" alt="Profile">
+                    </a>
+
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                             <?php if ($isLoggedIn): ?>
                                 <li><a class="dropdown-item" href="profile.php">Profile</a></li>
