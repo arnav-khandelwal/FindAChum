@@ -74,6 +74,9 @@ $isLoggedIn = isset($_SESSION['user_id']);
                 width: 100%;
             }
         }
+        #searchInput::placeholder {
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -97,7 +100,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
                     </li>
                 </ul>
                 <form class="d-flex ms-auto position-relative">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <input class="form-control me-2" id="searchInput" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-secondary position-absolute end-0" type="submit">
                         <i class="bi bi-search"></i>
                     </button>
