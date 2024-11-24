@@ -10,8 +10,8 @@ if (empty($_SESSION['user_name'])) {
 $user_name = $_SESSION['user_name'];
 $query = isset($_GET['query']) ? $_GET['query'] : '';
 
-// Update the SQL query to use user_name in the users table and reference user_info via user_name
-$sql = "SELECT u.user_name, 
+// Update the SQL query to fetch image_address from user_info as well
+$sql = "SELECT u.user_name, u.image_address, 
             EXISTS (SELECT 1 FROM friends f
                     WHERE f.user_id = (SELECT id FROM users WHERE user_name = ?) 
                     AND f.friend_id = (SELECT id FROM users WHERE user_name = u.user_name) 
@@ -31,5 +31,3 @@ while ($row = $result->fetch_assoc()) {
 
 echo json_encode(['users' => $users]);
 ?>
-
-
