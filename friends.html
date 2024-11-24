@@ -32,6 +32,45 @@
         .user-card .btn {
             padding: 6px 12px;
         }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .search-section {
+            flex: 2; /* Takes about 70% of the screen */
+        }
+        .friends-section {
+            flex: 1; /* Takes about 30% of the screen */
+            border: 1px solid rgb(58, 4, 4);
+            border-radius: 5px;
+            padding: 15px;
+            background-color: #0a0707;
+        }
+        #searchInput {
+            width: 50%; /* Shortens the search box */
+        }
+        .list-group {
+    background-color: #1a1a1a; /* Dark background for the entire list */
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
+}
+
+.list-group-item {
+    background-color: #222; /* Dark background for list items */
+    color: #fff; /* Light text for contrast */
+    border: 1px solid #444; /* Subtle dark border */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 8px; /* Space between list items */
+    transition: background-color 0.3s ease; /* Smooth background transition on hover */
+}
+
+.list-group-item:hover {
+    background-color: #333; /* Darker shade when hovered */
+}
+
     </style>
 </head>
 <body>
@@ -64,24 +103,32 @@
     </script>
 
 <div class="container mt-5">
-    <h2>Friends</h2>
-    
-    <!-- Search for users -->
-    <div class="input-group mb-3">
-        <input type="text" id="searchInput" class="form-control" placeholder="Search for users">
-        <div class="input-group-append">
-            <button class="btn btn-primary" id="searchButton" onclick="searchUsers()">Search</button>
+    <!-- Search Section -->
+    <div class="search-section">
+        <h2>Friends</h2>
+        
+        <!-- Search for users -->
+        <div class="input-group mb-3">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search for users">
+            <div class="input-group-append">
+                <button class="btn btn-primary" id="searchButton" onclick="searchUsers()">Search</button>
+            </div>
+        </div>
+        
+        <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Search Results</h3>
+        <div id="searchResults">
+            <!-- Search results will be shown here -->
         </div>
     </div>
     
-    <h3>Your Friends</h3>
-    <ul id="friendsList" class="list-group">
-        <!-- Friends list will be populated here -->
-    </ul>
-    
-    <h3>Search Results</h3>
-    <div id="searchResults">
-        <!-- Search results will be shown here -->
+    <div class="friends-section">
+        <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Your Friends</h3>
+        <ul id="friendsList" class="list-group">
+            <!-- Friends list will be populated here -->
+            <li class="list-group-item">Friend 1</li>
+            <li class="list-group-item">Friend 2</li>
+            <li class="list-group-item">Friend 3</li>
+        </ul>
     </div>
 </div>
 
