@@ -228,7 +228,7 @@ if (empty($_SESSION['user_name'])) {
         
         <!-- Search for users -->
         <div class="input-group mb-3">
-            <input type="text" id="searchInput" class="form-control" placeholder="Search for users">
+        <input type="text" id="SI" class="form-control" placeholder="Search for users">
             <div class="input-group-append">
                 <button class="btn btn-primary" id="searchButton" onclick="searchUsers()">Search</button>
             </div>
@@ -249,6 +249,7 @@ if (empty($_SESSION['user_name'])) {
 </div>
 
 <script>
+    
 // This function fetches the current user's friends and shows them
 // This function fetches the current user's friends and shows them
 function loadFriends() {
@@ -282,7 +283,9 @@ function loadFriends() {
 
 // This function searches for users when the Search button is clicked
 function searchUsers() {
-    const query = document.getElementById('searchInput').value;
+    const query = document.getElementById('SI').value;
+    console.log(query);
+    
     if (query.trim() === "") {
         document.getElementById('searchResults').innerHTML = "";
         return;
@@ -297,7 +300,6 @@ function searchUsers() {
         data.users.forEach(user => {
             const userCard = document.createElement('div');
             userCard.classList.add('user-card');
-            
             userCard.innerHTML = `
                 <img src="${user.image_address}" alt="${user.user_name}">
                 <span class="username">${user.user_name}</span>

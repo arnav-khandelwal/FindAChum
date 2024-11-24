@@ -19,16 +19,16 @@ $result = $stmt->get_result();
 $user_data = $result->fetch_assoc();
 $user_id = $user_data['id'];
 
-// Get the list of friends where the user is either the user_id or the friend_id, excluding the current user
-$query = "SELECT u.user_name, u.id 
-          FROM users u 
-          JOIN friends f ON (f.user_id = u.id OR f.friend_id = u.id) 
-          WHERE (f.user_id = ? OR f.friend_id = ?) 
-            AND f.status = 'accepted'
-            AND u.id != ?"; // Exclude the current user from the results
-
+// Get the list of friends added by the user
+$query = "
+    SELECT u.user_name, u.id 
+    FROM users u 
+    JOIN friends f ON f.friend_id = u.id 
+    WHERE f.user_id = ? 
+      AND f.status = 'accepted'
+";
 $stmt = $conn->prepare($query);
-$stmt->bind_param('iii', $user_id, $user_id, $user_id);
+$stmt->bind_param('i', $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
