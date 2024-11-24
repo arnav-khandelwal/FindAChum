@@ -90,7 +90,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
                         <a class="nav-link" href="homepage.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Friends</a>
+                        <a class="nav-link" href="friends.html">Friends</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="profile.php">Mypage</a>
