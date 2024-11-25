@@ -134,6 +134,8 @@ project-root/
 ├── navbar.php          # Reusable navigation bar
 ├── README.md           # Project documentation
 └── ...
+
+```
 ## Future Enhancements
 
 This project has immense potential for future development. Below are some planned enhancements:
