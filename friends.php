@@ -272,6 +272,7 @@ function loadFriends() {
                 listItem.classList.add('list-group-item');
                 listItem.innerHTML = `
                     <strong>${friend.user_name}</strong>
+                    <button class="btn btn-primary btn-sm float-right ml-3" onclick="viewProfile('${friend.user_name}')">View Profile</button>
                     <button class="btn btn-danger btn-sm float-right" onclick="removeFriend(${friend.id})">Remove</button>
                 `;
                 friendsList.appendChild(listItem);

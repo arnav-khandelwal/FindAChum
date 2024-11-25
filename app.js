@@ -248,7 +248,3 @@ window.onload = function () {
 // Set max date for the date filter (7 days ahead)
 document.getElementById("dateFilter").setAttribute("max", new Date(new Date().setDate(new Date().getDate() + 7)).toISOString().split('T')[0]);
 
-// Load posts from localStorage on page load
-document.addEventListener('DOMContentLoaded', function() {
-  loadDraft(); // Load the saved draft, if any
-});

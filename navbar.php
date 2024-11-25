@@ -128,15 +128,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
                                 <li><a class="dropdown-item" href="signin.html">Sign In / Sign Up</a></li>
                             <?php endif; ?>
                             <li><a class="dropdown-item" href="#">Check Past Posts</a></li>
-                            <li class="dropdown-item">
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="themeToggle">
-                                    <label class="form-check-label" for="themeToggle">
-                                        <i class="bi bi-brightness-high-fill"></i> / 
-                                        <i class="bi bi-moon-fill"></i> Toggle Theme
-                                    </label>
-                                </div>
-                            </li>
+                            <li><a class="dropdown-item" href="#">Notifications</a></li>
                         </ul>
                     </li>
                 </ul>
