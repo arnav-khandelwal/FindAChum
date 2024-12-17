@@ -1,6 +1,6 @@
 # Sports Social Media Web Application  
 
-A platform designed to connect sports enthusiasts by allowing them to post and discover sports activities, find teammates or opponents, and foster a community around shared interests in sports and fitness.  
+Arnav A platform designed to connect sports enthusiasts by allowing them to post and discover sports activities, find teammates or opponents, and foster a community around shared interests in sports and fitness.  
 
 ## Features  
 
